@@ -22,11 +22,11 @@ function App() {
     }
 
     setHistory(currentHistory => {
-      const isTraversing = currentMove + 1 == !currentHistory.length;
+      const isTraversing = currentMove + 1 !== currentHistory.length;
 
       const lastGamingState = isTraversing
         ? currentHistory[currentMove]
-        : currentHistory[currentHistory - 1];
+        : currentHistory[currentHistory.length - 1];
 
       const nextSquaresState = lastGamingState.squares.map(
         (squareValue, position) => {
@@ -44,6 +44,7 @@ function App() {
         isXNext: !lastGamingState.isXNext,
       });
     });
+
     setCurrentMove(move => move + 1);
   };
 
@@ -58,7 +59,6 @@ function App() {
         squares={gamingBoard.squares}
         handleSquareClick={handleSquareClick}
       />
-      <h2>Current game history</h2>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
   );
